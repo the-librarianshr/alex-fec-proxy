@@ -20,7 +20,6 @@ app.get('/books/:id', (req, res) => {
     url: `http://localhost:3002/authors/${bookId}`,
   })
     .then(response => {
-      console.log(response);
       res.end(JSON.stringify(response.data));
     })
     .catch(err => console.log(err));
