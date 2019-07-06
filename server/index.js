@@ -5,6 +5,8 @@ const axios = require('axios');
 
 const morgan = require('morgan');
 
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 app.use(morgan('dev'));
 
 app.use(express.static(__dirname + '/../public'));
@@ -17,10 +19,23 @@ app.get('/books/:id', (req, res) => {
   let bookId = req.params.id;
   axios({
     method: 'get',
-    url: `http://localhost:3002/authors/${bookId}`,
+    url: `http://localhost:3030/book/${bookId}`,
   })
     .then(response => {
-      res.end(JSON.stringify(response.data));
+      return response.data[0];
+    })
+    .then(book => {
+      console.log(book);
+      axios({
+        method: 'get',
+        url: `http://localhost:3002/authors/${book.author.id}`
+      })
+        .then(response => {
+          book.author = response.data;
+          console.log(book);
+          res.render('index', { book: book });
+        })
+        .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
 });
