@@ -19,20 +19,18 @@ app.get('/books/:id', (req, res) => {
   let bookId = req.params.id;
   axios({
     method: 'get',
-    url: `http://localhost:3030/book/${bookId}`,
+    url: `http://localhost:3030/book/${bookId}`
   })
     .then(response => {
       return response.data[0];
     })
     .then(book => {
-      console.log(book);
       axios({
         method: 'get',
         url: `http://localhost:3002/authors/${book.author.id}`
       })
         .then(response => {
           book.author = response.data;
-          console.log(book);
           res.render('index', { book: book });
         })
         .catch(err => console.log(err));
