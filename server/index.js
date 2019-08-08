@@ -12,6 +12,6 @@ app.use(morgan('dev'));
 //   next();
 // });
 
-app.use('/books/:id', express.static(__dirname + '/../public'));
+app.use('*', express.static(__dirname + '/../public'));
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
