@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "webpack-cli": "^3.3.4"
+    "webpack-cli": "^3.3.12"
   }
 }
